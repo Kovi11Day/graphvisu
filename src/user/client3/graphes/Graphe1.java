@@ -1,4 +1,4 @@
-package user.client3.grahes;
+package user.client3.graphes;
 
 import java.util.ArrayList;
 

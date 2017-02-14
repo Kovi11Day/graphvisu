@@ -7,7 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import user.client3.grahes.Graphe1;
+import user.client3.graphes.Graphe1;
 import user.client3.structgraphe.MyEdge;
 import user.client3.structgraphe.MyGraphe;
 import user.client3.structgraphe.MyVertexe;
