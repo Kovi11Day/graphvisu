@@ -17,10 +17,18 @@ import user.client3.structgraphe.MyVertexe;
 import converters.Converter;
 import converters.GenericGraphToFXGraphConverter;
 import edu.uci.ics.jung.graph.Graph;
+import fxunits.FXedge;
 import fxunits.FXgraphe;
+/*
+<<<<<<< HEAD
 import graphe.BuildGraph;
 import graphvisunits.VisuEdge;
 import graphvisunits.VisuVertex;
+=======
+*/
+import fxunits.FXvertexe;
+import fxunits.FXedge;
+//>>>>>>> 7a722a0a9621c33dc4e5c84ced5799eccd07b60e
 
 
 //**************************************************/
@@ -42,8 +50,8 @@ public class Demo1 extends Application{
 	
 		//display
 		
-		visuGraphe.getJungGraphe();
-		
+		Graph<FXvertexe,FXedge> mySpecialGraph = visuGraphe.getJungGraphe();
+		System.out.println("EDGE COUNTTT: "+ mySpecialGraph.getEdgeCount());
 		   StackPane pane = new StackPane();
 		   pane.setPrefSize(700,700); //set a default size for your stackpane
 		   pane.getChildren().add(visuGraphe);
