@@ -1,4 +1,7 @@
 package user.client3.visualize;
+import java.awt.Dimension;
+
+import musicalLayout.GridLayout;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -15,6 +18,9 @@ import converters.Converter;
 import converters.GenericGraphToFXGraphConverter;
 import edu.uci.ics.jung.graph.Graph;
 import fxunits.FXgraphe;
+import graphe.BuildGraph;
+import graphvisunits.VisuEdge;
+import graphvisunits.VisuVertex;
 
 
 //**************************************************/
@@ -25,6 +31,7 @@ import fxunits.FXgraphe;
 //Convert jung graph to FXgraph and visualise
 //**************************************************/
 public class Demo1 extends Application{
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		//provide client graph here

@@ -9,16 +9,14 @@ import java.util.Map;
 import musicalLayout.GridLayout;
 import clientctx.IClientEdgeContext;
 import clientctx.IClientVertexContext;
-import fxunits.FXgraphe;
 import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.algorithms.layout.SpringLayout;
-import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseGraph;
 import edu.uci.ics.jung.graph.SparseMultigraph;
 import fxunits.FXedge;
+import fxunits.FXgraphe;
 import fxunits.FXvertexe;
 
 public class GenericGraphToFXGraphConverter<V,E> implements Converter<Graph<V,E>,FXgraphe> {
