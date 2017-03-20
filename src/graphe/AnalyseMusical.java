@@ -17,28 +17,22 @@ import graphvisunits.VisuGraph;
 import graphvisunits.VisuVertex;
 
 public class AnalyseMusical extends Application{
-	private Graph<VisuVertex,VisuEdge> graphe; 
-	private Layout<VisuVertex,VisuEdge> layout;
+	private MusicalGraph graphe; 
 	
 	public void init(){
-    	System.out.println("init starting");
-		this.graphe = BuildGraph.buildRandomMusicalGraph();
-    	System.out.println("build graph over");
-
-    	layout = new GridLayout2<VisuVertex,VisuEdge>(this.graphe);
+    	Graph<VisuVertex,VisuEdge> jungGraph = BuildGraph.buildRandomMusicalGraph();
+		this.graphe = new MusicalGraph(jungGraph);
+		
+    	Layout<VisuVertex,VisuEdge> layout = new GridLayout2<VisuVertex,VisuEdge>(graphe.getJungGraphe());
     	layout.setSize(new Dimension(700,700));
-    	System.out.println("init over");
+    	graphe.applyLayout(layout);
 	}
 	@Override
 	public void start(Stage stage) throws Exception {
 		   StackPane pane = new StackPane();
 		   pane.setPrefSize(700,700); //set a default size for your stackpane
-		   VisuGraph visuGraphe = new VisuGraph(this.graphe);
-		   pane.getChildren().add(visuGraphe);
-		  // Circle c = new Circle(100);
-		   //c.setFill(Color.AQUA);
-		   //pane.getChildren().add(c);
-		   StackPane.setAlignment(visuGraphe,Pos.CENTER);
+		   pane.getChildren().add(this.graphe);
+		   StackPane.setAlignment(this.graphe,Pos.CENTER);
 		   
 		Scene s = new Scene(pane);	
 		

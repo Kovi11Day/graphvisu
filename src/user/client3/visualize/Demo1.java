@@ -1,34 +1,21 @@
 package user.client3.visualize;
-import java.awt.Dimension;
 
-import musicalLayout.GridLayout;
 import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+
 import javafx.stage.Stage;
 import user.client3.graphes.Graphe1;
 import user.client3.structgraphe.MyEdge;
-import user.client3.structgraphe.MyGraphe;
 import user.client3.structgraphe.MyVertexe;
 import converters.Converter;
 import converters.GenericGraphToFXGraphConverter;
 import edu.uci.ics.jung.graph.Graph;
 import fxunits.FXedge;
 import fxunits.FXgraphe;
-/*
-<<<<<<< HEAD
-import graphe.BuildGraph;
-import graphvisunits.VisuEdge;
-import graphvisunits.VisuVertex;
-=======
-*/
+
 import fxunits.FXvertexe;
-import fxunits.FXedge;
-//>>>>>>> 7a722a0a9621c33dc4e5c84ced5799eccd07b60e
 
 
 //**************************************************/

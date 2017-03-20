@@ -1,6 +1,8 @@
 package graphvisunits;
 
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
@@ -11,15 +13,16 @@ public class VisuVertex extends Parent{
 	protected double j;
 	protected double x = 0; //actual coordinates calculated by layout
 	protected double y = 0;
-	protected Shape vertexShape = new Circle(10); 
+	protected Circle vertexShape = new Circle(10); 
 	
 	public VisuVertex (double uniqueID, double i, double j){
 		this.uniqueID = uniqueID;
 		this.i = i;
 		this.j = j;
 		this.vertexShape.setFill(Color.BLACK); 
+		this.vertexShape.setCenterX(this.x);
+		this.vertexShape.setCenterY(this.y);
 		this.getChildren().add(this.vertexShape);
-		System.out.println("VisuVertex built with i=" + i + " j=" + j);
 	}
 	
 	public void activate (){
@@ -60,6 +63,7 @@ public class VisuVertex extends Parent{
 
 	public void setX(double x) {
 		this.x = x;
+		this.vertexShape.setCenterX(x);
 	}
 
 	public double getY() {
@@ -68,13 +72,14 @@ public class VisuVertex extends Parent{
 
 	public void setY(double y) {
 		this.y = y;
+		this.vertexShape.setCenterY(y);
 	}
 
 	public Shape getVertexShape() {
 		return vertexShape;
 	}
 
-	public void setVertexShape(Shape vertexShape) {
+	public void setVertexShape(Circle vertexShape) {
 		this.vertexShape = vertexShape;
 	}
 	

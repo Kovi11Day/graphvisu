@@ -21,11 +21,11 @@ public class BuildGraph {
 		for (int i = 0; i < nbRows; i++){
 			for (int j = 0 ; j < nbCol; j ++){
 				System.out.println("i=" + i + "j="  +j);
-				graph.addVertex(new VisuVertex(uniqueID, i, j));
+				graph.addVertex(new MusicalVertex(uniqueID, i, j));
 			}
 			uniqueID++;
 		}
-		System.out.println("built graph");
+		//System.out.println("built graph");
 		ArrayList<VisuVertex> vertices = new ArrayList<>();
 		Collection<VisuVertex> colvertices = graph.getVertices();
 		vertices.addAll(colvertices);
@@ -35,23 +35,20 @@ public class BuildGraph {
 		VisuVertex start = null; VisuVertex end = null;
 		int find_i1 ;
 		int find_i2;
-		for (int i = 0 ; i < nbCol - 1; i++){
-			for (int j = 0; j < nbEdgesInCol; j++){
+		for (int i = 0 ; i < nbCol - 1; i++){ //i rep col num here
+			nbEdgesInCol = rand.nextInt(50); 
+			for (int j = 0; j < nbEdgesInCol; j++){//nb arretes a creer dans une colonne
 				find_i1 = rand.nextInt(nbRows);
 				find_i2 = rand.nextInt(nbRows);
-				//find_i1 = 2;
-				//find_i2 = 3;
 				assert(vertices.size() > 0);
 				for(VisuVertex v: vertices){
-					if(v.getI() == find_i1 && v.getJ() == j)
+					if(v.getJ() == find_i1 && v.getI() == i)
 						start = v;
-					if(v.getI() == find_i2 && v.getJ() == j+1)
+					if(v.getJ() == find_i2 && v.getI() == i+1)
 						end = v;
 				}
-				//start = vertices.get(i);
-				//start = vertices.get(0);
-
-				graph.addEdge(new VisuEdge(start, end), start, end);
+				if(start != null && end != null)
+					graph.addEdge(new MusicalEdge(start, end), start, end);
 				//graph.addEdge(new VisuEdge(vertices, end), start, end);
 
 			}
