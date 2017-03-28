@@ -1,19 +1,18 @@
 package graphe;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import musicalLayout.GridLayout2;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import graphvisunits.VisuEdge;
-import graphvisunits.VisuGraph;
 import graphvisunits.VisuVertex;
 
 public class AnalyseMusical extends Application{
@@ -26,11 +25,30 @@ public class AnalyseMusical extends Application{
     	Layout<VisuVertex,VisuEdge> layout = new GridLayout2<VisuVertex,VisuEdge>(graphe.getJungGraphe());
     	layout.setSize(new Dimension(700,700));
     	graphe.applyLayout(layout);
+
 	}
+	
+	public void shortestPath(){
+		//lancer algo de bellman 
+    	MusicalVertex source = graphe.getMusicalVertex(0);
+    	MusicalVertex destination = graphe.getMusicalVertex(4);
+    	source.getVertexShape().setFill(Color.AQUA);
+    	destination.getVertexShape().setFill(Color.BLUEVIOLET);
+    	AlgoAnalyseMusical algo = new AlgoAnalyseMusical(graphe);
+    	ArrayList<MusicalEdge> shortestPath = algo.calculatePath(destination, algo.bellmanFord(source));
+    	System.out.println("path:" + shortestPath);
+    	for(MusicalEdge e: shortestPath){
+    		e.getEdgeLine().setStroke(Color.AQUA);
+    		e.refreshLine();
+    		//e.getEdgeShape().setFill(Color.AQUA);
+    	}
+	}
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		   StackPane pane = new StackPane();
 		   pane.setPrefSize(700,700); //set a default size for your stackpane
+	    	this.shortestPath();
 		   pane.getChildren().add(this.graphe);
 		   StackPane.setAlignment(this.graphe,Pos.CENTER);
 		   

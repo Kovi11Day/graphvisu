@@ -66,7 +66,7 @@ public class VisuEdge extends Parent{
 		this.endVertex = endVertex;
 	}
 
-	public Shape getEdgeShape() {
+	public Line getEdgeLine() {
 		return edgeLine;
 	}
 

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
+import edu.uci.ics.jung.graph.DirectedSparseMultigraph;
 import edu.uci.ics.jung.graph.Graph;
-import edu.uci.ics.jung.graph.SparseMultigraph;
 import graphvisunits.VisuEdge;
 import graphvisunits.VisuVertex;
 
@@ -15,12 +15,12 @@ public class BuildGraph {
 
 		int nbRows = 5;
 		int nbCol = 5;
-		Graph<VisuVertex,VisuEdge> graph = new SparseMultigraph<>();
+		Graph<VisuVertex,VisuEdge> graph = new DirectedSparseMultigraph<>();
 
 		double uniqueID = 0; 
 		for (int i = 0; i < nbRows; i++){
 			for (int j = 0 ; j < nbCol; j ++){
-				System.out.println("i=" + i + "j="  +j);
+				//System.out.println("i=" + i + "j="  +j);
 				graph.addVertex(new MusicalVertex(uniqueID, i, j));
 			}
 			uniqueID++;
@@ -47,8 +47,11 @@ public class BuildGraph {
 					if(v.getJ() == find_i2 && v.getI() == i+1)
 						end = v;
 				}
-				if(start != null && end != null)
-					graph.addEdge(new MusicalEdge(start, end), start, end);
+				if(start != null && end != null){
+					MusicalEdge edge = (new MusicalEdge(start, end));
+					edge.setWeight(rand.nextInt(10));
+					graph.addEdge(edge, end, start);
+				}
 				//graph.addEdge(new VisuEdge(vertices, end), start, end);
 
 			}

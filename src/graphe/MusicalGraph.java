@@ -1,21 +1,28 @@
 package graphe;
 
+import edu.uci.ics.jung.graph.Graph;
+import graphvisunits.VisuEdge;
+import graphvisunits.VisuGraph;
+import graphvisunits.VisuVertex;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import edu.uci.ics.jung.graph.Graph;
-import fxunits.FXedge;
-import fxunits.FXvertexe;
-import graphvisunits.VisuEdge;
-import graphvisunits.VisuGraph;
-import graphvisunits.VisuVertex;
 
+//Contains graph of FX nodes and edges i.e. nodes and edges can be visualised
+//Is a graph + a layout
+//Allows to access specific vertex directly (with jung whole collection of vertices mut be obtained first)
 public class MusicalGraph extends VisuGraph{
-
+	private ArrayList<MusicalVertex> vertices;
 	public MusicalGraph(Graph<VisuVertex, VisuEdge> jungGraphe) {
 		super(jungGraphe);
+		this.vertices = new ArrayList<>();
+		for (VisuVertex v: jungGraphe.getVertices()){
+			vertices.add((MusicalVertex)v);
+		}
 		//interactions
 		this.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent me){
@@ -48,4 +55,13 @@ public class MusicalGraph extends VisuGraph{
 		        EventHandler<? super FXCommEvent> value) {
 		    this.addEventHandler(FXCommEvent.COMM, value);
 		}
+	 
+	 public MusicalVertex getMusicalVertex(double id){
+		 for (MusicalVertex v: this.vertices){
+			 if (v.getUniqueID()==id)
+				 return v;			 
+		 }
+		 System.out.println("destination not found");
+		 return null;
+	 }
 }
