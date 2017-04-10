@@ -2,6 +2,7 @@ package graphe;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -25,7 +26,6 @@ public class AnalyseMusical extends Application{
     	Layout<VisuVertex,VisuEdge> layout = new GridLayout2<VisuVertex,VisuEdge>(graphe.getJungGraphe());
     	layout.setSize(new Dimension(700,700));
     	graphe.applyLayout(layout);
-
 	}
 	
 	public void shortestPath(){
@@ -34,11 +34,16 @@ public class AnalyseMusical extends Application{
     	MusicalVertex destination = graphe.getMusicalVertex(4);
     	source.getVertexShape().setFill(Color.AQUA);
     	destination.getVertexShape().setFill(Color.BLUEVIOLET);
-    	AlgoAnalyseMusical algo = new AlgoAnalyseMusical(graphe);
-    	ArrayList<MusicalEdge> shortestPath = algo.calculatePath(destination, algo.bellmanFord(source));
+    	
+    	//AlgoAnalyseMusical algo = new AlgoAnalyseMusical(graphe);
+    	//HashMap<MusicalVertex, Couple> bellmanFord = algo.bellmanFord(source);
+    	ArrayList<MusicalEdge> shortestPath = this.graphe.shortestPath(source,destination);
     	System.out.println("path:" + shortestPath);
-    	for(MusicalEdge e: shortestPath){
-    		e.getEdgeLine().setStroke(Color.AQUA);
+    	MusicalEdge e;
+    	for(int i = 0; i < shortestPath.size(); i++){
+    		e = shortestPath.get(i);
+    	//for(MusicalEdge e: shortestPath){
+    		e.getEdgeLine().setStroke(Color.RED);
     		e.refreshLine();
     		//e.getEdgeShape().setFill(Color.AQUA);
     	}

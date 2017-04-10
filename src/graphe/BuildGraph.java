@@ -35,8 +35,11 @@ public class BuildGraph {
 		VisuVertex start = null; VisuVertex end = null;
 		int find_i1 ;
 		int find_i2;
+		int weight;
+		int total = 0;
 		for (int i = 0 ; i < nbCol - 1; i++){ //i rep col num here
 			nbEdgesInCol = rand.nextInt(50); 
+			total += nbEdgesInCol;
 			for (int j = 0; j < nbEdgesInCol; j++){//nb arretes a creer dans une colonne
 				find_i1 = rand.nextInt(nbRows);
 				find_i2 = rand.nextInt(nbRows);
@@ -49,13 +52,16 @@ public class BuildGraph {
 				}
 				if(start != null && end != null){
 					MusicalEdge edge = (new MusicalEdge(start, end));
-					edge.setWeight(rand.nextInt(10));
-					graph.addEdge(edge, end, start);
+					weight = rand.nextInt(10);
+					edge.setWeight(weight);
+					edge.getLabel().setText(String.valueOf(weight));
+					graph.addEdge(edge, start, end);
 				}
 				//graph.addEdge(new VisuEdge(vertices, end), start, end);
 
 			}
 		}
+		System.out.println("nb edges=" + total);
 		return graph;
 	}
 }

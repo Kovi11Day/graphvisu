@@ -31,7 +31,9 @@ public class VisuEdge extends Parent{
 		this.startVertex = start;
 		this.endVertex = end;
 		this.edgeLine = new Line(startVertex.getX(), startVertex.getY(), endVertex.getX(), endVertex.getY());
-		this.edgeLine.setFill(Color.BLACK);
+		//this.edgeLine.setFill(Color.BLACK);
+		this.edgeLine.setStroke(Color.BLACK);
+
 		this.getChildren().add(this.edgeLine);
 	}
 	
