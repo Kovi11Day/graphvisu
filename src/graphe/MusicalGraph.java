@@ -62,6 +62,14 @@ public class MusicalGraph extends VisuGraph{
 			result.add(dest.getBf_predArrete());
 			dest = (MusicalVertex) this.jungGraphe.getSource(dest.getBf_predArrete());
 		}
+		System.out.println("Result:");
+		MusicalVertex source, destination;
+		for(VisuEdge e: result){
+			source = (MusicalVertex) this.jungGraphe.getSource(e);
+			destination = (MusicalVertex) this.jungGraphe.getDest(e);
+			System.out.println("source: ("+ source.getI() + "," + source.getJ() + ")" + 
+					"dest: ("+ destination.getI() + "," + destination.getJ() + ")");
+		}
 		return result;
 	}
 	public void apply_bellmanFord (MusicalVertex src){
@@ -81,11 +89,15 @@ public class MusicalGraph extends VisuGraph{
 				 
 				if (u.getBf_distance() + me.getWeight() < v.getBf_distance()){
 					System.out.println("u.distance="+u.getBf_distance()+" me.Weight+"+me.getWeight()+" v.distance"+v.getBf_distance()+"\n");
-	
 					v.setBf_distance(u.getBf_distance() + me.getWeight());
 					v.setBf_predArrete(me);
 				}
 			}
+		}
+		for(VisuVertex vertex: this.jungGraphe.getVertices()){
+			MusicalVertex ver = (MusicalVertex)vertex;
+			System.out.println("vertex:(" + ver.getI() +","+ver.getJ()+ "):"
+					+"pred:"+ver.getBf_predArrete()+ "                  distance:" + ver.getBf_distance());
 		}
 	}
 	public void applyLayout(Layout<VisuVertex,VisuEdge> layout ){

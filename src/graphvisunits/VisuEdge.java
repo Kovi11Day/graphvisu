@@ -38,7 +38,8 @@ public class VisuEdge extends Parent{
 	}
 	
 	public void activate(){
-		this.edgeLine.setFill(Color.RED);
+		//this.edgeLine.setFill(Color.RED);
+		this.edgeLine.setStroke(Color.RED);
 	}
 	
 	public void disactivate(){

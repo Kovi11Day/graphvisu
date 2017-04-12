@@ -52,7 +52,8 @@ public class BuildGraph {
 				}
 				if(start != null && end != null){
 					MusicalEdge edge = (new MusicalEdge(start, end));
-					weight = rand.nextInt(10);
+					weight = rand.nextInt(10)
+							;
 					edge.setWeight(weight);
 					edge.getLabel().setText(String.valueOf(weight));
 					graph.addEdge(edge, start, end);

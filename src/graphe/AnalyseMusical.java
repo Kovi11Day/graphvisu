@@ -39,13 +39,23 @@ public class AnalyseMusical extends Application{
     	//HashMap<MusicalVertex, Couple> bellmanFord = algo.bellmanFord(source);
     	ArrayList<MusicalEdge> shortestPath = this.graphe.shortestPath(source,destination);
     	System.out.println("path:" + shortestPath);
-    	MusicalEdge e;
+    	MusicalEdge e; int count = 0;
     	for(int i = 0; i < shortestPath.size(); i++){
     		e = shortestPath.get(i);
+    		count++;
     	//for(MusicalEdge e: shortestPath){
     		e.getEdgeLine().setStroke(Color.RED);
-    		e.refreshLine();
+    		//e.activate();
+    		//e.refreshLine();
     		//e.getEdgeShape().setFill(Color.AQUA);
+    	}
+    	System.out.println("count=" + count);
+    	for(int i = 0; i < shortestPath.size(); i++){
+    		e = shortestPath.get(i);
+    		e.getEdgeLine().setStroke(Color.RED);
+    		e.getEdgeLine().setStrokeWidth(4.
+    				);
+    		//e.refreshLine();
     	}
 	}
 	
