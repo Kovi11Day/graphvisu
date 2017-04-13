@@ -12,12 +12,16 @@ import java.util.Collection;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 //Contains graph of FX nodes and edges i.e. nodes and edges can be visualised
 //Is a graph + a layout
 //Allows to access specific vertex directly (with jung whole collection of vertices mut be obtained first)...WHY?
 //musical analysis algortihmes can be applied to it
 public class MusicalGraph extends VisuGraph{
+	private int nbSommetsColonne;
+	private int nbSommetsLigne;
 	//private ArrayList<MusicalVertex> vertices;
 	public MusicalGraph(Graph<VisuVertex, VisuEdge> jungGraphe) {
 		super(jungGraphe);
@@ -52,11 +56,36 @@ public class MusicalGraph extends VisuGraph{
 			Event.fireEvent((MusicalEdge)edge, new FXCommEvent(null));
 		}
 	}
+	public ArrayList<MusicalEdge> findEtiquette (MusicalVertex src, MusicalVertex dest, String etiquette){
+		//BuildGraph.grapheComplet(jungGraphe, getNbSommetsColonne());
+		this.setWeight4Music(etiquette);
+		//apply_bellmanFord (src);  //TODO: apply only when required (when structure graph modified)
+		ArrayList<MusicalEdge> result = this.shortestPath(src, dest);
+		for(MusicalEdge e: result){
+			e.getLabel().setVisible(true);
+    		e.getEdgeLine().setStroke(Color.BLUEVIOLET);
+    		e.getEdgeLine().setStrokeWidth(3.);
+		}
+		int total = 0;
+		for(MusicalEdge e: result){
+			total += e.getWeight();
+		}
+		if (total > this.nbSommetsLigne - 1 ){
+			return new ArrayList<MusicalEdge>();
+		}else
+			return result;
+
+	}
 	//ameliorer pour eviter moins d'appels vers bellmanFord
 	public ArrayList<MusicalEdge> shortestPath(MusicalVertex src, MusicalVertex dest){
-		apply_bellmanFord (src);
-    	//MusicalVertex dest = this.getMusicalVertex(4);
-
+		//1)REMPLIR TROU
+			this.jungGraphe=BuildGraph.grapheComplet(jungGraphe, getNbSommetsColonne());
+		//2)AJOUTER SOURCE ET DEST
+			//this.addSrcDest();
+		//3)PONDERER ARRETES
+		//4)BELLMANFORD
+		apply_bellmanFord (src);  //TODO: apply only when required (when structure graph modified)
+		//5)RECUPERATION CHEMIN
 		ArrayList<MusicalEdge> result = new ArrayList<>();
 		while(dest.getBf_predArrete()!=null){
 			result.add(dest.getBf_predArrete());
@@ -106,18 +135,35 @@ public class MusicalGraph extends VisuGraph{
 		MusicalEdge edge;
 		MusicalVertex v1;
 		MusicalVertex v2;
-		double labelX;double labelY;
+		double labelX,labelX1;double labelY,labelY1;double m,tmp;
 		for(VisuEdge e: this.jungGraphe.getEdges()){
 			edge = (MusicalEdge)e;
 			v1 = (MusicalVertex)e.getStartVertex();
 			v2 = (MusicalVertex)e.getEndVertex();
-			labelX = (v1.getX() + v2.getX())*0.5;
-			labelY = (v1.getY() + v2.getY())*0.5;
+			
+			//Calculate label coordinates (eviter chauvauchement)
+			if (v2.getX() - v1.getX()==0)m=Double.MAX_VALUE;
+			else m = (v2.getY() - v1.getY() )/(v2.getX() - v1.getX());
+			System.out.println("gradddddd="+m);
+			double c = v1.getY() - m* v1.getX();
+			if(1-m*m==0)tmp=50;
+			else tmp =20/ (1-m*m);
+			System.out.println("tmppppppp="+tmp);
+			//labelX = v1.getX() +tmp;// Math.sqrt(tmp);
+			//labelY = m*labelX+c;
+			//double r =0.5-(Math.random()/5);
+			double r =0.5-(Math.random());
+
+			labelX = (v1.getX() + v2.getX())*0.5; //+ 0.2*(v1.getX()-v2.getX());
+			labelY= (v1.getY() + v2.getY())*0.5;// + 0.2*(v1.getY()-v2.getY());
+			//labelX = (v2.getX() + labelX1)*0.5;
+			//labelY= (v2.getY() + labelY1)*0.5;
 			edge.getLabel().setLayoutX(labelX);
 			edge.getLabel().setLayoutY(labelY);
+			edge.getLabel().setFont(new Font("Arial",12));
+			edge.getLabel().setVisible(false);
 		}
 	}
-	
 	 public final void setOnFXCommEvent(
 		        EventHandler<? super FXCommEvent> value) {
 		    this.addEventHandler(FXCommEvent.COMM, value);
@@ -136,5 +182,39 @@ public class MusicalGraph extends VisuGraph{
 		 }*/
 		 System.out.println("destination not found");
 		 return null;
+	 }
+	 
+	 /*sarrra */
+	 // modifie le poid en fonction de l'etiquette de nom "et"
+	 public void setWeight4Music(String et){
+		 for(VisuEdge e :jungGraphe.getEdges()){
+			 if(e instanceof MusicalEdge){
+				 MusicalEdge edge = (MusicalEdge) e;
+				 if(edge.getLabel().getText().equals(et)){
+					 edge.setWeight(1);
+				 }
+				 else{
+					 edge.setWeight(3);
+				 }
+			 }
+		 }
+	 }
+	 // fin sarra
+
+	 public void addSrcDest(){
+			this.jungGraphe.addVertex(new MusicalVertex(-1, 6, 6));
+			this.jungGraphe.addVertex(new MusicalVertex(-1, this.nbSommetsColonne+1, this.nbSommetsLigne+1));
+	 }
+	 public int getNbSommetsColonne(){
+		 return this.nbSommetsColonne;
+	 }
+	 public void setNbSommetsColonne(int nb){
+		 this.nbSommetsColonne = nb;
+	 }
+	 public int getNbSommetsLigne(){
+		 return this.nbSommetsLigne;
+	 }
+	 public void setNbSommetsLigne(int nb){
+		 this.nbSommetsLigne = nb;
 	 }
 }

@@ -30,8 +30,8 @@ public class GridLayout2<V,E> extends StaticLayout<V, E> {
 		for(V v : g.getVertices()){
 			//int i =((IClientVertexContext) v).getI()*100; //TODO: calculer dynamiquement facteur multiplicative
 			//int j =((IClientVertexContext) v).getJ()*100;
-			double i = ((VisuVertex)v).getI()*100;
-			double j = ((VisuVertex)v).getJ()*100; 
+			double i = ((VisuVertex)v).getI()*110;
+			double j = ((VisuVertex)v).getJ()*110; 
 			Point2D p = new Point((int)i, (int)j);
 			this.setLocation(v, p);
 		}

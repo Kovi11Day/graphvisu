@@ -6,7 +6,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 
 public class VisuEdge extends Parent{
-	protected VisuVertex startVertex;
+	protected VisuVertex startVertex; 
 	protected VisuVertex endVertex;
 	/*
 	protected double startVertex;
@@ -30,6 +30,12 @@ public class VisuEdge extends Parent{
 		*/
 		this.startVertex = start;
 		this.endVertex = end;
+		/*actualisation des degres entrant et sortant*/
+		this.startVertex.setOut();
+		this.endVertex.setIn();
+		
+		//this.startVertex = start;
+		//this.endVertex = end;
 		this.edgeLine = new Line(startVertex.getX(), startVertex.getY(), endVertex.getX(), endVertex.getY());
 		//this.edgeLine.setFill(Color.BLACK);
 		this.edgeLine.setStroke(Color.BLACK);

@@ -13,6 +13,11 @@ public class VisuVertex extends Parent{
 	protected double j;
 	protected double x = 0; //actual coordinates calculated by layout
 	protected double y = 0;
+	
+
+	protected int out=0;
+	protected int in =0;
+	
 	protected Circle vertexShape = new Circle(10); 
 	
 	public VisuVertex (double uniqueID, double i, double j){
@@ -82,5 +87,20 @@ public class VisuVertex extends Parent{
 	public void setVertexShape(Circle vertexShape) {
 		this.vertexShape = vertexShape;
 	}
+	public int getIn(){
+		return this.in;
+	}
 	
+	public int getOut(){
+		return this.out;
+	}
+	
+	public void setIn(){
+		this.in++;
+	}
+	
+	public void setOut(){
+		this.out++;
+	}
+
 }

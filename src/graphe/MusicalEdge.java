@@ -7,11 +7,12 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 public class MusicalEdge extends VisuEdge{
-	private Label edgeLabel = new Label();
+	private Label edgeLabel;
 	private int weight = 0;
 	public MusicalEdge(VisuVertex start, VisuVertex end) {
 		super(start, end);
-		
+		this.edgeLabel = new Label();
+
 		this.setOnFXCommEvent(new EventHandler<FXCommEvent>(){
 			public void handle(FXCommEvent me){
 				commHandler(me);
@@ -19,6 +20,20 @@ public class MusicalEdge extends VisuEdge{
 		});
 		this.getChildren().add(this.edgeLabel);
 	}
+	
+	/*sarra */
+	/* autre constructeur*/
+	public MusicalEdge(VisuVertex start, VisuVertex end,String label) {
+		super(start, end);
+		this.edgeLabel = new Label(label);
+		this.setOnFXCommEvent(new EventHandler<FXCommEvent>(){
+			public void handle(FXCommEvent me){
+				commHandler(me);
+			}
+		});
+		this.getChildren().add(this.edgeLabel);
+	}
+	/* fin sarra*/
 	public void commHandler(FXCommEvent me){
 		this.edgeLine.setStroke(Color.GREEN);
 		me.consume(); 
@@ -27,6 +42,7 @@ public class MusicalEdge extends VisuEdge{
 		        EventHandler<? super FXCommEvent> value) {
 		    this.addEventHandler(FXCommEvent.COMM, value);
 	}
+	 
 	 
 	 public int getWeight (){
 		 return this.weight;
