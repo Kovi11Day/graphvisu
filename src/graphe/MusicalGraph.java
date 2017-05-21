@@ -22,6 +22,9 @@ import javafx.scene.text.Font;
 public class MusicalGraph extends VisuGraph{
 	private int nbSommetsColonne;
 	private int nbSommetsLigne;
+	MusicalVertex src;
+	MusicalVertex dst;
+
 	//private ArrayList<MusicalVertex> vertices;
 	public MusicalGraph(Graph<VisuVertex, VisuEdge> jungGraphe) {
 		super(jungGraphe);
@@ -48,7 +51,7 @@ public class MusicalGraph extends VisuGraph{
 	}
 	public void commHandler(FXCommEvent me){
 		if(me.getParameter()==null){
-			System.out.println("received event graph fired to edge throught bubbling...shouldn't happen");
+			System.out.println("received event graph fired to edge through bubbling...shouldn't happen");
 		}
 		MusicalVertex vertexClicked = (MusicalVertex)me.getParameter();
 		Collection<VisuEdge> incidentEdges = this.jungGraphe.getOutEdges(vertexClicked);
@@ -64,7 +67,7 @@ public class MusicalGraph extends VisuGraph{
 		for(MusicalEdge e: result){
 			e.getLabel().setVisible(true);
     		e.getEdgeLine().setStroke(Color.BLUEVIOLET);
-    		e.getEdgeLine().setStrokeWidth(3.);
+    		e.getEdgeLine().setStrokeWidth(4.);
 		}
 		int total = 0;
 		for(MusicalEdge e: result){
@@ -91,6 +94,8 @@ public class MusicalGraph extends VisuGraph{
 			result.add(dest.getBf_predArrete());
 			dest = (MusicalVertex) this.jungGraphe.getSource(dest.getBf_predArrete());
 		}
+		result.remove(nbSommetsLigne);
+		result.remove(0);
 		System.out.println("Result:");
 		MusicalVertex source, destination;
 		for(VisuEdge e: result){
@@ -170,6 +175,7 @@ public class MusicalGraph extends VisuGraph{
 		}
 	 
 	 public MusicalVertex getMusicalVertex(double id){
+
 		 MusicalVertex m;
 		 for (VisuVertex v : this.jungGraphe.getVertices()){
 			 m = (MusicalVertex)v;
@@ -194,7 +200,7 @@ public class MusicalGraph extends VisuGraph{
 					 edge.setWeight(1);
 				 }
 				 else{
-					 edge.setWeight(3);
+					 edge.setWeight(2);
 				 }
 			 }
 		 }
@@ -202,9 +208,30 @@ public class MusicalGraph extends VisuGraph{
 	 // fin sarra
 
 	 public void addSrcDest(){
-			this.jungGraphe.addVertex(new MusicalVertex(-1, 6, 6));
-			this.jungGraphe.addVertex(new MusicalVertex(-1, this.nbSommetsColonne+1, this.nbSommetsLigne+1));
-	 }
+		 MusicalVertex src = new MusicalVertex(-1, 6, 6);
+		 MusicalVertex dst = new MusicalVertex(-1, this.nbSommetsColonne+1, this.nbSommetsLigne+1);
+			//this.jungGraphe.addVertex(src);
+			//this.jungGraphe.addVertex(dst);
+		 this.setSrc(src);
+		 this.setDst(dst);
+		 MusicalEdge edge;
+		 MusicalVertex mv;
+		 for(VisuVertex v: this.jungGraphe.getVertices()){
+			 	mv= (MusicalVertex)v;
+			 	if (mv.getI() == 0){
+				 edge = (new MusicalEdge(src, mv,"X"));
+				 edge.setWeight(1);
+				 this.jungGraphe.addEdge(edge, src, mv);
+			 	}
+				if (mv.getI() == this.nbSommetsColonne-1){
+					 edge = (new MusicalEdge(mv, dst,"X"));
+					 edge.setWeight(1);
+					 this.jungGraphe.addEdge(edge, mv, dst);
+				 	}
+			 	
+			 }
+		 }
+	
 	 public int getNbSommetsColonne(){
 		 return this.nbSommetsColonne;
 	 }
@@ -214,7 +241,29 @@ public class MusicalGraph extends VisuGraph{
 	 public int getNbSommetsLigne(){
 		 return this.nbSommetsLigne;
 	 }
+	 
 	 public void setNbSommetsLigne(int nb){
 		 this.nbSommetsLigne = nb;
+	 }
+	 
+	 public void setSrc(MusicalVertex src){
+		 this.src = src;
+		 if (this.src != null){
+			 this.jungGraphe.removeVertex(this.src);
+		 }
+		 this.jungGraphe.addVertex(src);
+	 }
+	 public void setDst(MusicalVertex dst){
+		 this.dst = dst;
+		 if (this.src != null){
+			 this.jungGraphe.removeVertex(this.dst);
+		 }
+		 this.jungGraphe.addVertex(dst);
+	 }
+	 public MusicalVertex getSrc(){
+		 return this.src;
+	 }
+	 public MusicalVertex getDst(){
+		 return this.dst;
 	 }
 }

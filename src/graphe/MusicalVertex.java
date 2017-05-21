@@ -16,7 +16,6 @@ public class MusicalVertex extends VisuVertex{
 		super(uniqueID, i, j);
 		//this.getChildren().add(this.vertexShape);
 		//interactions
-
 		this.setOnMousePressed(new EventHandler<MouseEvent>(){
 			public void handle(MouseEvent me){
 				appuyer(me);
@@ -58,4 +57,6 @@ public class MusicalVertex extends VisuVertex{
 	 public void setBf_predArrete(MusicalEdge predArrete){
 		 this.bf_predArrete = predArrete;
 	 }
+	 
+	
 }

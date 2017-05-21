@@ -26,7 +26,7 @@ public class AnalyseMusical extends Application{
 		this.graphe = new MusicalGraph(jungGraph);
 		/*sarra*/
 		//Test
-		graphe.setWeight4Music("T1");
+		//graphe.setWeight4Music("T1");
 		//graphe.setWeight4Music("0.01.0");
 		for(VisuEdge v: jungGraph.getEdges()) {
 			if(v instanceof MusicalEdge){
@@ -47,12 +47,13 @@ public class AnalyseMusical extends Application{
 	}
 	
 	public void shortestPath(){
-		//lancer algo de bellman 
-    	MusicalVertex source = graphe.getMusicalVertex(0);
+    	/*MusicalVertex source = graphe.getMusicalVertex(0);
     	MusicalVertex destination = graphe.getMusicalVertex(4);
     	source.getVertexShape().setFill(Color.AQUA);
-    	destination.getVertexShape().setFill(Color.BLUEVIOLET);
-    	
+    	destination.getVertexShape().setFill(Color.BLUEVIOLET);*/
+    	MusicalVertex source = graphe.getSrc();
+    	MusicalVertex destination = graphe.getDst();
+
     	//AlgoAnalyseMusical algo = new AlgoAnalyseMusical(graphe);
     	//HashMap<MusicalVertex, Couple> bellmanFord = algo.bellmanFord(source);
     	//ArrayList<MusicalEdge> shortestPath = this.graphe.shortestPath(source,destination);

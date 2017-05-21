@@ -1,27 +1,19 @@
 package fxunits;
 
+import graphe.FXCommEvent;
+
 import java.awt.Point;
 import java.awt.geom.Point2D;
 
-import clientctx.IClientVertexContext;
-import javafx.scene.Parent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import clientctx.IClientVertexContext;
 
 public class FXvertexe extends Parent implements IClientVertexContext{
 	private IClientVertexContext vertexCtx; 
