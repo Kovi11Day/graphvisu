@@ -59,13 +59,21 @@ public class BuildGraph {
 	}
 	public static String randomEtiquette(){
 		Random rand = new Random();
-		int pick = rand.nextInt(2)+1;
+		int pick = rand.nextInt(12);//+1;
 		switch (pick){
 		case 1: return "T1";//Etiquettes.T1;
 		case 2: return "T2";//Etiquettes.T2;
-		//case 3: return "T3";//Etiquettes.T3;
-		//case 4: return "T4";//Etiquettes.T4;
-		//case 5: return "T5";//Etiquettes.T5;
+		case 3: return "T3";//Etiquettes.T3;
+		case 4: return "T4";//Etiquettes.T4;
+		case 5: return "T5";//Etiquettes.T5;
+		case 6: return "T6";//Etiquettes.T1;
+		case 7: return "T7";//Etiquettes.T2;
+		case 8: return "T8";//Etiquettes.T3;
+		case 9: return "T9";//Etiquettes.T4;
+		case 10: return "T10";//Etiquettes.T5;
+		case 11: return "T11";//Etiquettes.T5;
+		case 12: return "T0";//Etiquettes.T5;
+
 		default: return "T1";//Etiquettes.T5;
 		}
 	}
@@ -77,11 +85,66 @@ public class BuildGraph {
 		}
 		return h;
 	}
+	
+	public static VisuVertex getVertex(Graph<VisuVertex,VisuEdge> graph, double i, double j ){
+		MusicalVertex m;
+		for (VisuVertex v: graph.getVertices()){
+			m = (MusicalVertex)v;
+			if (m.getI() == i && m.getJ() == j){
+				return m;
+			}
+		}
+		throw new RuntimeException("getVertex: vertex not in graph");
+	}
 
+	public static Graph<VisuVertex,VisuEdge> buildRandomMusicalGraph2 (){
+		int nbRows = 5;
+		int nbCol = 5;
+		double uniqueID = 0; 
+
+		Graph<VisuVertex,VisuEdge> g = new DirectedSparseMultigraph<>();
+		
+		//add vertices
+		for (int i = 0; i < nbRows; i++){
+			for (int j = 0 ; j < nbCol; j ++){
+				g.addVertex(new MusicalVertex(uniqueID, i, j));
+			}
+			uniqueID++;
+		}
+		
+		//add edges
+		g.addEdge((new MusicalEdge(getVertex(g,0,0), getVertex(g,1,1),"T2")),getVertex(g,0,0), getVertex(g,1,1));
+		g.addEdge((new MusicalEdge(getVertex(g,0,1), getVertex(g,1,1),"T1")),getVertex(g,0,1), getVertex(g,1,1));
+		g.addEdge((new MusicalEdge(getVertex(g,0,2), getVertex(g,1,2),"T1")),getVertex(g,0,2), getVertex(g,1,2));
+		g.addEdge((new MusicalEdge(getVertex(g,0,3), getVertex(g,1,2),"T4")),getVertex(g,0,3), getVertex(g,1,2));
+		g.addEdge((new MusicalEdge(getVertex(g,0,4), getVertex(g,1,4),"T5")),getVertex(g,0,4), getVertex(g,1,4));
+
+		
+		g.addEdge((new MusicalEdge(getVertex(g,1,2), getVertex(g,2,0),"T1")),getVertex(g,1,2), getVertex(g,2,0));
+		g.addEdge((new MusicalEdge(getVertex(g,1,2), getVertex(g,2,1),"T2")),getVertex(g,1,2), getVertex(g,2,1));
+		g.addEdge((new MusicalEdge(getVertex(g,1,3), getVertex(g,2,3),"T3")),getVertex(g,1,3), getVertex(g,2,3));
+		g.addEdge((new MusicalEdge(getVertex(g,1,3), getVertex(g,2,4),"T2")),getVertex(g,1,3), getVertex(g,2,4));
+
+		/*
+		g.addEdge((new MusicalEdge(getVertex(g,2,0), getVertex(g,3,3),"T1")),getVertex(g,2,0), getVertex(g,3,3));
+		g.addEdge((new MusicalEdge(getVertex(g,2,1), getVertex(g,3,0),"T4")),getVertex(g,2,1), getVertex(g,3,0));
+		g.addEdge((new MusicalEdge(getVertex(g,2,4), getVertex(g,3,3),"T1")),getVertex(g,2,4), getVertex(g,3,3));
+		g.addEdge((new MusicalEdge(getVertex(g,2,4), getVertex(g,3,4),"T6")),getVertex(g,2,4), getVertex(g,3,4));
+*/
+		
+		g.addEdge((new MusicalEdge(getVertex(g,3,0), getVertex(g,4,1),"T11")),getVertex(g,3,0), getVertex(g,4,1));
+		g.addEdge((new MusicalEdge(getVertex(g,3,3), getVertex(g,4,0),"T10")),getVertex(g,3,3), getVertex(g,4,0));
+		g.addEdge((new MusicalEdge(getVertex(g,3,3), getVertex(g,4,2),"T8")),getVertex(g,3,3), getVertex(g,4,2));
+		g.addEdge((new MusicalEdge(getVertex(g,3,3), getVertex(g,4,3),"T1")),getVertex(g,3,3), getVertex(g,4,3));
+		g.addEdge((new MusicalEdge(getVertex(g,3,4), getVertex(g,4,4),"T7")),getVertex(g,3,4), getVertex(g,4,4));
+		 
+		return g;
+	}
+	
 
 	public static Graph<VisuVertex,VisuEdge> buildRandomMusicalGraph (){
 
-		int nbRows = 5;
+		int nbRows = 10;
 		int nbCol = 5;
 		Graph<VisuVertex,VisuEdge> graph = new DirectedSparseMultigraph<>();
 
@@ -106,7 +169,7 @@ public class BuildGraph {
 		int weight;
 		int total = 0;
 		for (int i = 0 ; i < nbCol - 1; i++){ //i rep col num here
-			nbEdgesInCol = rand.nextInt(50); 
+			nbEdgesInCol = rand.nextInt(10); 
 			total += nbEdgesInCol;
 			for (int j = 0; j < nbEdgesInCol; j++){//nb arretes a creer dans une colonne
 				find_i1 = rand.nextInt(nbRows);

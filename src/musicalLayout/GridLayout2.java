@@ -9,7 +9,8 @@ import musicalLayout.interfaces.IVerticesNotes;
 import edu.uci.ics.jung.algorithms.layout.StaticLayout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.graph.SparseGraph;
-import graphvisunits.VisuVertex;
+import graphe2.MusicalVertex;
+import graphvisunits2.VisuVertex;
 
 
 
@@ -25,17 +26,21 @@ public class GridLayout2<V,E> extends StaticLayout<V, E> {
 		makeGrapheandLayout();
 	}
 	//version 2 le graphe existe deja, on modifie juste les coordoné de chaque vertexe
-	public GridLayout2(Graph<V,E> g){
+	public GridLayout2(Graph<V,E> g, int spaceH, int spaceV){
 		super(g);
 		for(V v : g.getVertices()){
 			//int i =((IClientVertexContext) v).getI()*100; //TODO: calculer dynamiquement facteur multiplicative
 			//int j =((IClientVertexContext) v).getJ()*100;
-			double i = ((VisuVertex)v).getI()*110;
-			double j = ((VisuVertex)v).getJ()*110; 
+			MusicalVertex m = (MusicalVertex)v;
+			//ATTENTION: (x,y) = (j,i) 
+			double j = m.getI()*spaceV;
+			double i = m.getJ()*spaceH; 
 			Point2D p = new Point((int)i, (int)j);
 			this.setLocation(v, p);
 		}
 	}
+	
+
 
 	@SuppressWarnings("unchecked")
 	public void makeGrapheandLayout(){

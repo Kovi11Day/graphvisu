@@ -31,6 +31,8 @@ public class MusicalVertex extends VisuVertex{
 			}
 		});
 	}
+	
+	
 	public void commHandler(FXCommEvent me){
 		this.vertexShape.setFill(Color.RED);
 		me.consume();

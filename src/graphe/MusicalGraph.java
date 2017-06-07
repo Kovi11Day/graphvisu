@@ -149,24 +149,19 @@ public class MusicalGraph extends VisuGraph{
 			//Calculate label coordinates (eviter chauvauchement)
 			if (v2.getX() - v1.getX()==0)m=Double.MAX_VALUE;
 			else m = (v2.getY() - v1.getY() )/(v2.getX() - v1.getX());
-			System.out.println("gradddddd="+m);
 			double c = v1.getY() - m* v1.getX();
 			if(1-m*m==0)tmp=50;
 			else tmp =20/ (1-m*m);
-			System.out.println("tmppppppp="+tmp);
-			//labelX = v1.getX() +tmp;// Math.sqrt(tmp);
-			//labelY = m*labelX+c;
-			//double r =0.5-(Math.random()/5);
+
 			double r =0.5-(Math.random());
 
-			labelX = (v1.getX() + v2.getX())*0.5; //+ 0.2*(v1.getX()-v2.getX());
-			labelY= (v1.getY() + v2.getY())*0.5;// + 0.2*(v1.getY()-v2.getY());
-			//labelX = (v2.getX() + labelX1)*0.5;
-			//labelY= (v2.getY() + labelY1)*0.5;
+			labelX = (v1.getX() + v2.getX())*0.5;
+			labelY= (v1.getY() + v2.getY())*0.5;
+
 			edge.getLabel().setLayoutX(labelX);
 			edge.getLabel().setLayoutY(labelY);
 			edge.getLabel().setFont(new Font("Arial",12));
-			edge.getLabel().setVisible(false);
+			edge.getLabel().setVisible(true);
 		}
 	}
 	 public final void setOnFXCommEvent(
@@ -210,8 +205,6 @@ public class MusicalGraph extends VisuGraph{
 	 public void addSrcDest(){
 		 MusicalVertex src = new MusicalVertex(-1, 6, 6);
 		 MusicalVertex dst = new MusicalVertex(-1, this.nbSommetsColonne+1, this.nbSommetsLigne+1);
-			//this.jungGraphe.addVertex(src);
-			//this.jungGraphe.addVertex(dst);
 		 this.setSrc(src);
 		 this.setDst(dst);
 		 MusicalEdge edge;

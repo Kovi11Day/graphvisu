@@ -64,19 +64,16 @@ public class AnalyseMusical extends Application{
     	for(int i = 0; i < shortestPath.size(); i++){
     		e = shortestPath.get(i);
     		count++;
-    	//for(MusicalEdge e: shortestPath){
     		e.getEdgeLine().setStroke(Color.RED);
     		e.getLabel().setVisible(true);
-    		//e.activate();
-    		//e.refreshLine();
-    		//e.getEdgeShape().setFill(Color.AQUA);
+  
     	}
     	System.out.println("count=" + count);
     	for(int i = 0; i < shortestPath.size(); i++){
     		e = shortestPath.get(i);
     		e.getEdgeLine().setStroke(Color.RED);
     		e.getEdgeLine().setStrokeWidth(4.);
-    		//e.refreshLine();
+  
     	}
 	}
 	
